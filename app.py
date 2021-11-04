@@ -31,6 +31,14 @@ def pet(id):
     return render_template('pet.html', pet=pet)
 
 
+@app.route('/delete/<id>')
+def delete_pet(id):
+    pet = Pet.query.get(id)
+    db.session.delete(pet)
+    db.session.commit()
+    return redirect(url_for('index'))
+
+
 @app.route('/edit/<id>', methods=['GET', 'POST'])
 def edit_pet(id):
     pet = Pet.query.get(id)
